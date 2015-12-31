@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+const program = require('commander')
+  .version(require('../package.json').version)
+  .usage('<organization>')
+  .parse(process.argv)
+
+const assert = require('assert')
+assert(program.args[0], 'An organization name must be supplied!')
+
+const enable = require('../lib')
+enable(program.args[0]).then(() => {
+  console.log('All repositories enabled!')
+  process.exit(0)
+}).catch(err => {
+  console.error(err.stack)
+  process.exit(1)
+})
