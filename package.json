@@ -7,6 +7,7 @@
   "repository": "jonathanong/greenkeeper-enable-organization",
   "dependencies": {
     "batch-then": "^1.0.0",
+    "bluebird": "^3.1.5",
     "commander": "^2.9.0",
     "debug": "^2.2.0",
     "mz": "^2.1.0",

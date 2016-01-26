@@ -2,14 +2,20 @@
 
 const program = require('commander')
   .version(require('../package.json').version)
-  .usage('<organization>')
+  .usage('<organizations...>')
+  .option('-d, --disable')
   .parse(process.argv)
 
 const assert = require('assert')
 assert(program.args[0], 'An organization name must be supplied!')
 
 const enable = require('../lib')
-enable(program.args[0]).then(() => {
+
+const Bluebird = require('bluebird')
+Bluebird.config({
+  warnings: false
+})
+Bluebird.each(program.args, org => enable(org, program.disable)).then(() => {
   console.log('All repositories enabled!')
   process.exit(0)
 }).catch(err => {
